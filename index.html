@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>dari empeka, untuk gendis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;600&family=Kalam:wght@400;700&family=Caveat:wght@400;600&family=Amatic+SC:wght@400;700&family=Indie+Flower&family=Shadows+Into+Light&family=Satisfy&family=Pacifico&family=Comfortaa:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://public.codepenassets.com/css/normalize-5.0.0.min.css" rel="stylesheet"/>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --tongue: #c12115;
+        --pupil: #fff;
+        --icing: #f2f2f2;
+        --stroke: #1a1a1a;
+      }
+
+      body {
+        --frosting: hsl(var(--frosting-hue, 0), 100%, 55%);
+        --lightness: 50;
+        --flame: 0;
+        --glow-hue: 40;
+        --glow-saturation: 50;
+        --glow-lightness: 35;
+        --glow-alpha: 0.4;
+        --transparency-alpha: 0;
+        --glow: hsla(var(--glow-hue), calc(var(--glow-saturation) * 1%), calc(var(--glow-lightness) * 1%), var(--glow-alpha));
+        --transparent: hsla(0, 0%, 0%, var(--transparency-alpha));
+        font-family: "Playfair Display", serif;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: hsl(180, 30%, calc(var(--lightness, 50) * 1%));
+      }
+
+      /* Birthday Cake Animation Styles */
+      .cake-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        transition: opacity 1s ease, transform 1s ease;
+      }
+
+      .cake-section.hide {
+        opacity: 0;
+        transform: scale(0.8);
+        pointer-events: none;
+      }
+
+      .whitespace {
+        width: 7px;
+      }
+
+      .birthday-button {
+        position: relative;
+        transform: scale(0.6);
+        cursor: pointer;
+      }
+
+      .birthday-button__text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      .birthday-button__text .char {
+        display: inline-block;
+        color: hsl(var(--hue, 0), calc(var(--char-sat, 0) * 1%), calc(var(--char-light, 0) * 1%));
+      }
+
+      .birthday-button:before {
+        content: '';
+        position: absolute;
+        height: 240px;
+        width: 240px;
+        background: radial-gradient(var(--glow), var(--transparent) 30%), radial-gradient(var(--glow), var(--transparent) 50%);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -70%) scale(calc(var(--flame) * 3));
+        z-index: 2;
+        filter: blur(15px);
+        opacity: var(--flame);
+      }
+
+      .birthday-button:after {
+        content: '';
+        height: 30px;
+        width: 400px;
+        filter: blur(15px);
+        position: absolute;
+        background: radial-gradient(var(--glow), var(--transparent) 20%), radial-gradient(var(--glow), var(--transparent));
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(calc(var(--flame) * 1));
+        opacity: var(--flame);
+      }
+
+      .birthday-button__button {
+        width: 240px;
+        height: 100px;
+        position: relative;
+        border: 0;
+        background: var(--icing);
+        border-radius: 14px;
+        cursor: pointer;
+      }
+
+      .birthday-button__cake {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 289.5px;
+        display: none;
+      }
+
+      .cake__eye-body {
+        fill: var(--stroke);
+      }
+
+      .cake__eye-pupil {
+        fill: var(--pupil);
+      }
+
+      .cake__tongue {
+        fill: var(--tongue);
+      }
+
+      .cake__mouth-opening {
+        fill: var(--stroke);
+        stroke: var(--stroke);
+      }
+
+      .cake__sprinkle {
+        --sprinkle: hsl(var(--sprinkle-hue, 0), 100%, 75%);
+        fill: var(--sprinkle);
+      }
+
+      .cake__frosting--start {
+        fill: var(--frosting);
+      }
+
+      .cake__frosting--duplicate {
+        fill: var(--frosting);
+      }
+
+      .candle__flame {
+        opacity: var(--flame, 0);
+      }
+
+      .candle__flame-outer {
+        fill: #ff711f;
+      }
+
+      .candle__flame-inner {
+        fill: #edca1d;
+      }
+
+      .face__stroke {
+        stroke: var(--stroke);
+      }
+
+      .cake__candle:nth-of-type(1) {
+        --flame: 0;
+      }
+
+      .cake__candle:nth-of-type(2) {
+        --flame: 0;
+      }
+
+      .cake__candle:nth-of-type(3) {
+        --flame: 0;
+      }
+
+      label {
+        height: 44px;
+        width: 44px;
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        cursor: pointer;
+        z-index: 10001;
+      }
+
+      label > svg {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      label path {
+        fill: #476b6b;
+      }
+
+      label svg:nth-of-type(1) {
+        display: none;
+      }
+
+      [type='checkbox'] {
+        height: 0;
+        width: 0;
+        position: absolute;
+        top: 0;
+        left: 100%;
+      }
+
+      :checked ~ label svg:nth-of-type(1) {
+        display: block;
+      }
+
+      :checked ~ label svg:nth-of-type(2) {
+        display: none;
+      }
+
+      /* Letters Section Styles */
+      .letters-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #e8f5e8;
+        opacity: 0;
+        transform: scale(1.1);
+        transition: opacity 1s ease, transform 1s ease;
+        padding: 20px;
+        overflow-y: auto;
+        z-index: 9999;
+      }
+
+      .letters-section.show {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* Intro Screen Styles */
+      .intro-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10002;
+        transition: opacity 0.5s ease;
+      }
+
+      .intro-text {
+        color: #fff;
+        font-size: 2.5rem;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+        font-family: "Playfair Display", serif;
+        font-weight: 400;
+        letter-spacing: 2px;
+      }
+
+      .intro-text.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 1s ease;
+      }
+
+      .intro-text.hide {
+        opacity: 0;
+        transform: translateY(-30px);
+        transition: all 1s ease;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .envlope-wrapper {
+        height: 380px;
+        position: relative;
+        flex-basis: calc(33.333% - 20px);
+        min-width: 300px;
+        opacity: 0;
+        transform: scale(0.8) translateY(50px);
+        animation: popIn 0.6s ease forwards;
+      }
+
+      .envlope-wrapper:nth-child(1) { animation-delay: 0.2s; }
+      .envlope-wrapper:nth-child(2) { animation-delay: 0.4s; }
+      .envlope-wrapper:nth-child(3) { animation-delay: 0.6s; }
+      .envlope-wrapper:nth-child(4) { animation-delay: 0.8s; }
+      .envlope-wrapper:nth-child(5) { animation-delay: 1.0s; }
+      .envlope-wrapper:nth-child(6) { animation-delay: 1.2s; }
+      .envlope-wrapper:nth-child(7) { animation-delay: 1.4s; }
+      .envlope-wrapper:nth-child(8) { animation-delay: 1.6s; }
+      .envlope-wrapper:nth-child(9) { animation-delay: 1.8s; }
+
+      @keyframes popIn {
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .envelope {
+        position: relative;
+        width: 280px;
+        height: 180px;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        margin: 50px auto 0;
+        background-color: #2d5a3d;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .envelope:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .front {
+        position: absolute;
+        width: 0;
+        height: 0;
+        z-index: 3;
+      }
+
+      .flap {
+        border-left: 140px solid transparent;
+        border-right: 140px solid transparent;
+        border-bottom: 82px solid transparent;
+        border-top: 98px solid #2d5a3d;
+        transform-origin: top;
+        pointer-events: none;
+      }
+
+      .pocket {
+        border-left: 140px solid #7fb069;
+        border-right: 140px solid #7fb069;
+        border-bottom: 90px solid #4a7c59;
+        border-top: 90px solid transparent;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+
+      .letter {
+        position: relative;
+        background-color: #fff;
+        width: 90%;
+        margin: auto;
+        height: 90%;
+        top: 5%;
+        border-radius: 6px;
+        box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+        overflow-y: auto;
+        padding: 16px;
+        box-sizing: border-box;
+      }
+
+      /* Different handwriting fonts for each letter */
+      .letter[data-letter="1"] { font-family: "Dancing Script", cursive; }
+      .letter[data-letter="2"] { font-family: "Kalam", cursive; }
+      .letter[data-letter="3"] { font-family: "Caveat", cursive; }
+      .letter[data-letter="4"] { font-family: "Amatic SC", cursive; }
+      .letter[data-letter="5"] { font-family: "Indie Flower", cursive; }
+      .letter[data-letter="6"] { font-family: "Shadows Into Light", cursive; }
+      .letter[data-letter="7"] { font-family: "Satisfy", cursive; }
+      .letter[data-letter="8"] { font-family: "Arial", sans-serif; }
+      .letter[data-letter="9"] { font-family: "Comfortaa", cursive; }
+
+      .letter .words {
+        position: static !important;
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        background-color: transparent;
+        font-size: 1rem;
+        text-align: center;
+        line-height: 1.4;
+      }
+
+      .letter .words.line1 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 12px;
+        color: #2d5a3d;
+      }
+
+      .letter::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .letter::-webkit-scrollbar-thumb {
+        background-color: #9fcc9f;
+        border-radius: 3px;
+      }
+
+      .open .flap {
+        transform: rotateX(180deg);
+        transition: transform 0.4s ease, z-index 0.6s;
+        z-index: 1;
+      }
+
+      .close .flap {
+        transform: rotateX(0deg);
+        transition: transform 0.4s 0.6s ease, z-index 1s;
+        z-index: 5;
+      }
+
+      .close .letter {
+        transform: translateY(0px);
+        transition: transform 0.4s ease, z-index 1s;
+        z-index: 1;
+      }
+
+      .open .letter {
+        transform: translateY(-100px);
+        transition: transform 0.4s 0.6s ease, z-index 0.6s;
+        z-index: 2;
+      }
+
+      .hearts {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        right: 0;
+        z-index: 2;
+      }
+
+      .heart {
+        position: absolute;
+        bottom: 0;
+        right: 10%;
+        pointer-events: none;
+        font-size: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-shadow: none;
+        -webkit-text-stroke: 0;
+      }
+
+      .heart:before,
+      .heart:after {
+        display: none;
+      }
+
+      .close .heart {
+        opacity: 0;
+        animation: none;
+      }
+
+      .a1 {
+        left: 20%;
+        transform: scale(0.6);
+        opacity: 1;
+        animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
+        animation-fill-mode: forwards;
+        animation-delay: 0.7s;
+      }
+
+      .a2 {
+        left: 55%;
+        transform: scale(1);
+        opacity: 1;
+        animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
+        animation-fill-mode: forwards;
+        animation-delay: 0.7s;
+      }
+
+      .a3 {
+        left: 10%;
+        transform: scale(0.8);
+        opacity: 1;
+        animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
+        animation-fill-mode: forwards;
+        animation-delay: 0.7s;
+      }
+
+      @keyframes slideUp {
+        0% {
+          top: 0;
+          transform: scale(1);
+          opacity: 1;
+        }
+        70% {
+          opacity: 1;
+        }
+        100% {
+          top: -600px;
+          transform: scale(0.3);
+          opacity: 0;
+        }
+      }
+
+      @keyframes sideSway {
+        0% {
+          margin-left: 0px;
+        }
+        100% {
+          margin-left: 50px;
+        }
+      }
+
+      .reset {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .reset button {
+        font-weight: bold;
+        transition: all 0.1s linear;
+        background-color: transparent;
+        border: solid 2px #2d5a3d;
+        border-radius: 4px;
+        color: #2d5a3d;
+        display: inline-block;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin: 2px;
+        padding: 8px;
+        min-width: 80px;
+        cursor: pointer;
+        font-family: "Playfair Display", serif;
+      }
+
+      .reset button:hover {
+        background-color: #2d5a3d;
+        color: #fff;
+      }
+
+      .main-title {
+        text-align: center;
+        color: #2d5a3d;
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+        font-weight: 700;
+        font-family: "Playfair Display", serif;
+        letter-spacing: 1px;
+      }
+
+      .envelope-title {
+        text-align: center;
+        color: #2d5a3d;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-family: "Playfair Display", serif;
+      }
+
+      @media (max-width: 768px) {
+        .intro-text {
+          font-size: 1.8rem;
+          padding: 0 20px;
+        }
+        
+        .main-title {
+          font-size: 1.8rem;
+          padding: 0 10px;
+        }
+        
+        .envlope-wrapper {
+          flex-basis: calc(50% - 20px);
+          min-width: 280px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .intro-text {
+          font-size: 1.4rem;
+        }
+        
+        .main-title {
+          font-size: 1.5rem;
+        }
+        
+        .envlope-wrapper {
+          flex-basis: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Birthday Cake Section -->
+    <div class="cake-section" id="cakeSection">
+      <div class="birthday-button">
+        <button class="birthday-button__button">
+          <svg class="birthday-button__cake" viewbox="0 0 76.609 47.643" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+              <g id="candle" transform="translate(-48.82 -137.74)">
+                <rect fill="#ececec" height="12.001" ry=".567" width="4.252" x="72.548" y="147.888"></rect>
+                <g class="candle__flame">
+                  <path class="candle__flame-outer" d="M75.672 145.92c.608 1.207.086 2.224-.749 2.224s-1.512-.037-1.512-1.388.558-3.566 1.98-3.973c1.007-.288-.855.884.281 3.138z" fill="#f60"></path>
+                  <path class="candle__flame-inner" d="M75.081 146.449c.41.51.266 1.043-.13 1.128-.394.084-.682-.228-.822-.866 0 0-.13-1.382.502-1.719.447-.238-.315.505.45 1.457z" fill="#ff0"></path>
+                </g>
+                <g style="display: none">
+                  <path d="M73.676 145.92c-.609 1.207-.086 2.224.749 2.224s1.511-.037 1.511-1.388-.557-3.566-1.98-3.973c-1.006-.288.856.884-.28 3.138z" fill="#f60" id="flame-outer"></path>
+                  <path d="M74.267 146.449c-.41.51-.266 1.043.129 1.128.395.084.683-.228.823-.866 0 0 .13-1.382-.502-1.719-.447-.238.315.505-.45 1.457z" fill="#ff0" id="flame-inner"></path>
+                </g>
+              </g>
+              <clippath id="face-clip">
+                <rect height="26.458" ry="3.402" transform="translate(-48.82 -138.799)" width="63.5" x="55.374" y="159.984"></rect>
+              </clippath>
+              <clippath id="sprinkle-clip">
+                <rect height="26.458" ry="3.402" width="63.5" x="55.374" y="159.984"></rect>
+              </clippath>
+              <clippath id="frosting-clip">
+                <path d="m 58.311339,159.19367 c -1.915439,0 -3.331523,2.04311 -3.986711,3.74446 -0.778328,2.02111 -0.761971,4.73695 0.529167,6.47582 0.861406,1.16012 2.614079,1.3182 4.033715,1.5875 1.321013,0.25059 2.689143,0 4.033714,0 1.344572,0 2.689143,0 4.033715,0 1.344572,0 2.689143,0 4.033715,0 1.344571,0 2.689143,0 4.033714,0 1.344572,0 2.689143,0 4.033715,0 1.344572,0 2.689143,0 4.033715,0 1.344572,0 2.689143,0 4.033715,0 1.344571,0 2.689143,0 4.033714,0 1.344572,0 2.689143,0 4.033715,0 1.344572,0 2.689143,0 4.033715,0 1.344573,0 2.689143,0 4.033713,0 1.34457,0 2.68915,0 4.03372,0 1.34457,0 2.68914,0 4.03371,0 1.34457,0 2.71271,0.25059 4.03372,0 1.41963,-0.2693 3.17231,-0.42738 4.03371,-1.5875 1.29114,-1.73887 1.3075,-4.45471 0.52917,-6.47582 -0.65519,-1.70135 -2.07128,-3.74446 -3.98672,-3.74446 z" style="fill:#ff0041;fill-opacity:0.53424659;fill-rule:nonzero;stroke:none;stroke-width:0.90433162;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"></path>
+              </clippath>
+              <g id="sprinkles" transform="translate(63.93)">
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(-44.064)" width="3.307" x="-91.837" y="167.592"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(127.01)" width="3.307" x="76.642" y="165.35"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(85.232)" width="3.307" x="182.37" y="3.842"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(136.794)" width="3.307" x="122.349" y="-137.013"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(-28.569)" width="3.307" x="-90.997" y="160.466"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(-134.37)" width="3.307" x="-138.396" y="-124.272"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(-37.152)" width="3.307" x="-101.107" y="155.28"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(-72.723)" width="3.307" x="-169.664" y="77.322"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(36.566)" width="3.307" x="124.338" y="135.065"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(-45)" width="3.307" x="-111.692" y="150.009"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(30)" width="3.307" x="119.879" y="141.701"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(-55.914)" width="3.307" x="-129.555" y="139.024"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(-30)" width="3.307" x="-60.133" y="178.671"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(45)" width="3.307" x="162.293" y="95.647"></rect>
+                <rect class="cake__sprinkle" height="1.228" ry=".567" transform="rotate(45)" width="3.307" x="124.293" y="133.647"></rect>
+              </g>
+              <path d="M58.311 159.194c-1.915 0-3.283-.087-3.986 1.098-.392.661-.073 1.766.529 2.243 1.054.834 2.689 0 4.034 0H115.36c1.344 0 2.979.834 4.033 0 .602-.477.921-1.582.53-2.243-.703-1.185-2.072-1.098-3.987-1.098z" id="frosting"></path>
+              <path class="cake__frosting cake__frosting--end" d="M58.311 159.194c-1.915 0-3.354 2.034-3.986 3.744-.57 1.537-.953 4.189.529 4.888 1.454.687 2.425-2.645 4.034-2.645 1.608 0 2.425 2.645 4.033 2.645 1.608 0 2.426-2.645 4.034-2.645 1.608 0 2.426 2.645 4.034 2.645 1.608 0 2.425-2.645 4.033-2.645 1.608 0 2.426 2.645 4.034 2.645 1.608 0 2.426-2.645 4.034-2.645 1.608 0 2.426 2.645 4.034 2.645 1.608 0 2.425-2.645 4.033-2.645 1.608 0 2.426 2.645 4.034 2.645 1.608 0 2.436-2.83 4.034-2.645 1.936.222 2.084 4.233 4.033 4.233 1.95 0 2.098-4.01 4.034-4.233 1.598-.184 2.426 2.645 4.034 2.645 1.608 0 2.426-2.645 4.034-2.645 1.608 0 2.58 3.332 4.033 2.645 1.482-.7 1.098-3.35.53-4.888-.633-1.71-2.072-3.744-3.987-3.744z"></path>
+            </defs>
+            <g class="cake-decoration" transform="translate(-48.82 -138.799)">
+              <g class="cake__frosting-group" clip-path="url(#frosting-clip)">
+                <g class="cake__frosting cake__frosting--start">
+                  <use xlink:href="#frosting"></use>
+                </g>
+                <g class="cake__frosting cake__frosting--duplicate">
+                  <rect class="cake__frosting-patch" height="5" width="20" x="110" y="159.25"></rect>
+                  <use xlink:href="#frosting"></use>
+                </g>
+              </g>
+              <g class="cake__sprinkles-group" clip-path="url(#sprinkle-clip)">
+                <g class="cake__sprinkles cake__sprinkles--initial">
+                  <use xlink:href="#sprinkles"></use>
+                </g>
+                <g class="cake__sprinkles cake__sprinkles--duplicate">
+                  <use xlink:href="#sprinkles"></use>
+                </g>
+              </g>
+            </g>
+            <g clip-path="url(#face-clip)">
+              <g class="cake__face" transform="translate(-48.82 -138.799)">
+                <g class="cake__eyes">
+                  <g class="cake__eye" transform="matrix(1.38031 0 0 1.38031 34.723 -33.58)">
+                    <circle class="cake__eye-body" cx="29.86" cy="149.022" r="2.457"></circle>
+                    <circle class="cake__eye-pupil" cx="28.773" cy="148.162" r=".756"></circle>
+                  </g>
+                  <g class="cake__eye" transform="matrix(1.38031 0 0 1.38031 57.092 -33.58)">
+                    <circle class="cake__eye-body" cx="29.86" cy="149.022" r="2.457"></circle>
+                    <circle class="cake__eye-pupil" cx="28.773" cy="148.162" r=".756"></circle>
+                  </g>
+                </g>
+                <g class="cake__mouth">
+                  <path class="cake__mouth-opening" d="M83.607 174.436a3.652 3.652 0 003.518 2.674 3.652 3.652 0 003.515-2.674z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1801650499999998"></path>
+                  <path class="cake__tongue" d="M88.836 175.492a3.113 2.329 0 00-2.869 1.425 3.652 3.652 0 001.158.192 3.652 3.652 0 002.899-1.44 3.113 2.329 0 00-1.188-.177z"></path>
+                </g>
+              </g>
+              <g class="cake__face--straining" transform="translate(-48.82 -138.799)">
+                <path d="M100.673 173.886l-5.248-2.073 5.713-1.466M73.574 173.886l5.248-2.073-5.713-1.466" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.01590816"></path>
+                <path d="M85.016 175.773h4.216" fill="none" stroke="#000" stroke-linecap="round" stroke-width=".86683468"></path>
+              </g>
+            </g>
+            <g class="cake__candles">
+              <g class="cake__candle">
+                <use xlink:href="#candle"></use>
+              </g>
+              <g class="cake__candle">
+                <use transform="translate(25 0)" xlink:href="#candle"></use>
+              </g>
+              <g class="cake__candle">
+                <use transform="translate(12 0.5)" xlink:href="#candle"></use>
+              </g>
+            </g>
+          </svg>
+          <span class="birthday-button__text" data-splitting="">Happy Birthday!</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Letters Section -->
+    <div class="letters-section" id="lettersSection">
+      <!-- Intro Screen for Letters -->
+      <div class="intro-screen" id="introScreen">
+        <div class="intro-text" id="introText">sedikit hadiah kecil dari kami</div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content" id="mainContent">
+        <div class="main-title">dari kami sahabat, rekan, keluarga, untuk kamu si lilin yang selalu menyala</div>
+        
+        <div class="container">
+          <!-- Letter 1 -->
+          <div class="envlope-wrapper">
+            <div class="envelope-title">dari fardha</div>
+            <div class="envelope close" data-envelope="1">
+              <div class="front flap"></div>
+              <div class="front pocket"></div>
+              <div class="letter" data-letter="1">
+                <div class="words line1">dari fardha</div>
+                <div class="words line2">
+                  Selamat ulang tahun gendis!! , semoga terus menjadi semangat dan inspirasi bagi orang orang ya, semoga semua cita cita dan impiannya tercapai, sukses selalu untuk kedepannya, SEMANGAT!!!🔥🔥
+                </div>
+              </div>
+              <div class="hearts">
+                <div class="heart a1">🔥</div>
+                <div class="heart a2">❗</div>
+                <div class="heart a3">✅</div>
+              </div>
+            </div>
+            <div class="reset">
+              <button class="open-btn" data-target="1">Open</button>
+              <button class="close-btn" data-target="1">Close</button>
+            </div>
+          </div>
+
+          <!-- Letter 2 -->
+          <div class="envlope-wrapper">
+            <div class="envelope-title">dari bina</div>
+            <div class="envelope close" data-envelope="2">
+              <div class="front flap"></div>
+              <div class="front pocket"></div>
+              <div class="letter" data-letter="2">
+                <div class="words line1">dari bina</div>
+                <div class="words line2">
+                  Hi, Gendis! Leader yang sangat baik, baik, dan baik sekali. 🫶🏻
+                </div>
+                <div class="words line3">
+                  Happy Sweet Seventeen, sayangg! OMO OMO OMO, udah 17 tahun aja kamu… Rasanya baru kemarin banget kita kenalan di MPK. Dulu masih saling malu-malu, sekarang kamu udah berdiri gagah sebagai pemimpin yang luar biasa. Time flies so fast, ya? :( Aku yakin banget Mama Dini dan Bapak Ujang bangga banget melihat kamu berdiri sendiri sejauh ini. Yakinnn banget mereka selalu melihat pertumbuhan kamu, sekecil apa pun. Kamu kuat, kamu hebat, dan kamu tumbuh jadi pribadi yang luar biasa. Kehangatan dan cinta mereka pasti selalu ada di sekelilingmu, meski tidak secara fisik.
+                </div>
+                <div class="words line4">
+                  Terima kasih udah jadi dirimu yang sekarang yang hangat, tulus, dan penuh semangat. Terima kasih sudah jadi sahabatku dan pemimpin yang patut diteladani. Semoga di usia baru ini, semua mimpi kamu semakin dekat untuk dicapai, dan kamu selalu dikelilingi orang-orang yang mencintaimu. Doa terbaik selalu untukmu, Gendis. Dan peluk hangat dari aku 🤍
+                </div>
+                <div class="words line5">
+                  With love, Sabrina Lusiana.
+                </div>
+              </div>
+              <div class="hearts">
+                <div class="heart a1">❤️‍🩹</div>
+                <div class="heart a2">🥶</div>
+                <div class="heart a3">🤩</div>
+              </div>
+            </div>
+            <div class="reset">
+              <button class="open-btn" data-target="2">Open</button>
+              <button class="close-btn" data-target="2">Close</button>
+            </div>
+          </div>
+
+          <!-- Letter 3 -->
+          <div class="envlope-wrapper">
+            <div class="envelope-title">dari qya</div>
+            <div class="envelope close" data-envelope="3">
+              <div class="front flap"></div>
+              <div class="front pocket"></div>
+              <div class="letter" data-letter="3">
+                <div class="words line1">dari qya</div>
+                <div class="words line2">
+                  Happy Bday, Partner-in-Crime!
+                </div>
+                <div class="words line3">
+                  makasih udah jadi temen baik sekaligus partner paling-paling++ di MPK.
+                </div>
+                <div class="words line4">
+                  kebaikan dan semangat ndis selalu bikin aku salut... dan sayangg 🥹💖
+                </div>
+                <div class="words line5">
+                  semoga tahun ini bawa banyak tawa, cinta, dan pencapaian baru buat ndiss yaa!
+                </div>
+                <div class="words line6">
+                  with love,<br>Qiaa🩷
+                </div>
+              </div>
+              <div class="hearts">
+                <div class="heart a1">👀</div>
+                <div class="heart a2">💫</div>
+                <div class="heart a3">🌟</div>
+              </div>
+            </div>
+            <div class="reset">
+              <button class="open-btn" data-target="3">Open</button>
+              <button class="close-btn" data-target="3">Close</button>
+            </div>
+          </div>
+
+          <!-- Letter 4 -->
+          <div class="envlope-wrapper">
+            <div class="envelope-title">dari apenk</div>
+            <div class="envelope close" data-envelope="4">
+              <div class="front flap"></div>
+              <div class="front pocket"></div>
+              <div class="letter" data-letter="4">
+                <div class="words line1">dari apenk</div>
+                <div class="words line2">
+                  Hbd dies, sehat sehat tumz, tetap tegar di era gempuran, jngn kebanyak ngahuleng nikmati Weh nanti juga ada jalanya, maaf KL jadi anggota yg masih sering ngerepotin (emang sering sih), pokonya mah semangat jangan mudah menyerah
+                </div>
+              </div>
+              <div class="hearts">
+                <div class="heart a1">🎉</div>
+                <div class="heart a2">💚</div>
+                <div class="heart a3">🌈</div>
+              </div>
+            </div>
+            <div class="reset">
+              <button class="open-btn" data-target="4">Open</button>
+              <button class="close-btn" data-target="4">Close</button>
+            </div>
+          </div>
+
+          <!-- Letter 5 -->
+          <div class="envlope-wrapper">
+            <div class="envelope-title">dari faza</div>
+            <div class="envelope close" data-envelope="5">
+              <div class="front flap"></div>
+              <div class="front pocket"></div>
+              <div class="letter" data-letter="5">
+                <div class="words line1">dari faza</div>
+                <div class="words line2">
+                  haii teh gendiss,inii dari anak mu yang sangatt sangatt imup, hehee><
+                  sebelumnya HAPPY BIRTHDAY TEH GENDISS💕💕 pokoknya segala doaa terbaik untuk teh ndiesss..
+                </div>
+                <div class="words line3">
+                  aku ingin bilang terimakasiih pada teh ndiess yang selalu sabar membimbing akuu dari awal hingga sekarang ini,aku juga ingin minta maaf teh..aku merasa kadang aku juga kurang baik,tapi teteh tetep sabar menghadapi semuanya akuu bangga teh ndiess,kalo bisaa mau seterusnya ajaa sama teh ndiess,ga mau pisahh plss perpanjang waktu untuk mukerta dan sertijabnyaa aku masih mau menikmati hari hariku bersama teh ndiesss 😔😔. semangat teruss yaa teh ndiess,apapun itu plss tolong ceritakan teh ndiess aku suka kalo teh ndiess ceritaa...love u teteh💗🌟🙌🏻🫶🏻
+                </div>
+              </div>
+              <div class="hearts">
+                <div class="heart a1">⚡</div>
+                <div class="heart a2">🎭</div>
+                <div class="heart a3">🎨</div>
+              </div>
+            </div>
+            <div class="reset">
+              <button class="open-btn" data-target="5">Open</button>
+              <button class="close-btn" data-target="5">Close</button>
+            </div>
+          </div>
+
+          <!-- Letter 6 -->
+          <div class="envlope-wrapper">
+            <div class="envelope-title">dari zildan</div>
+            <div class="envelope close" data-envelope="6">
+              <div class="front flap"></div>
+              <div class="front pocket"></div>
+              <div class="letter" data-letter="6">
+                <div class="words line1">dari zildan</div>
+                <div class="words line2">Hi</div>
+                <div class="words line3">
+                  gatauk mau nyampein apa lagi selain selamat bertambah umur dan terimakasih, keknya udah semua diwakili sama yg lain...
+                </div>
+                <div class="words line4">
+                  yh aku sebagai pengcoding amatir cuman bisa ngasih hal kecil ini aja, keliatannya kecil bgt gasieh kalo dibandingin apa yg ndis berikan ke aku dan teman-teman lainnya. pkoknya kau harus zemangat trus, dengan apapun yg terjadi tolong diterima dengan baik di hati, kalo emg jalannya begini yasudah begini aja tohhh. karena sebaik-baiknya manusia berencana, rencana tuhan pasti lebih baik. TERAKHIR, JANGAN KALAH SAMA EGO SENDIRI YAK.
+                </div>
+                <div class="words line5">
+                  sekali lagi aku ucapkan selamat atas bertambahnya usiamu, semoga sehat selalu panjang umur dan banyak rezeki. maaf lagi atas semua perlakuan yg kurang mengenakkan dari diri aku. simpen ini dengan baik yak, walau cuman file 2kb tapi isinya melebihi luas lautan. w love, jiel.
+                </div>
+              </div>
+              <div class="hearts">
+                <div class="heart a1">🚀</div>
+                <div class="heart a2">⭐</div>
+                <div class="heart a3">🎯</div>
+              </div>
+            </div>
+            <div class="reset">
+              <button class="open-btn" data-target="6">Open</button>
+              <button class="close-btn" data-target="6">Close</button>
+            </div>
+          </div>
+
+          <!-- Letter 7 -->
+          <div class="envlope-wrapper">
+            <div class="envelope-title">dari kaka</div>
+            <div class="envelope close" data-envelope="7">
+              <div class="front flap"></div>
+              <div class="front pocket"></div>
+              <div class="letter" data-letter="7">
+                <div class="words line1">dari kaka</div>
+                <div class="words line2">
+                  Teh Gendis, Kaka ingin mengucapkan Terimakasih sebanyak-banyaknya...
+                  Bukan hanya karena Teh Gendis telah menjadi Ketua MPK yang hebat, tetapi karna Teh Gendis telah menjadi sosok yang sangat menginspirasi. Dari cara Teh Gendis membimbing kami, memberi arahan dengan sabar, hingga tetap tegar di saat situasi tak selalu mudah.
+                </div>
+                <div class="words line3">
+                  Semua itu mengajarkan Kaka arti tanggung jawab, keteguhan, dan keikhlasan dalam berproses. Jika Kaka bisa bertahan, berkembang, dan terus belajar sampai hari ini, salah satu alasannya adalah karena Teh Gendis. Terimakasih telah menjadi pemimpin yang bukan hanya kuat, tapi juga menginspirasi.
+                </div>
+                <div class="words line4">
+                  Semoga di usia ke-17 ini, Teh Gendis selalu dikelilingi oleh kebaikan dan ketulusan, seperti yang selama ini Teh berikan kepada kami semua.
+                </div>
+                <div class="words line5">
+                  Selamat bertumbuh. Selamat bersinar. Dan selamat menjadi versi terbaik dari dirimu, Teh Gendis. Hari ini, semesta merayakan hadirnya seseorang yang benar-benar luar biasa.
+                </div>
+              </div>
+              <div class="hearts">
+                <div class="heart a1">🎪</div>
+                <div class="heart a2">🌸</div>
+                <div class="heart a3">🦋</div>
+              </div>
+            </div>
+            <div class="reset">
+              <button class="open-btn" data-target="7">Open</button>
+              <button class="close-btn" data-target="7">Close</button>
+            </div>
+          </div>
+
+          <!-- Letter 8 -->
+          <div class="envlope-wrapper">
+            <div class="envelope-title">dari ais</div>
+            <div class="envelope close" data-envelope="8">
+              <div class="front flap"></div>
+              <div class="front pocket"></div>
+              <div class="letter" data-letter="8">
+                <div class="words line1">dari ais</div>
+                <div class="words line2">
+                  hi teh gendis, happy birthday, yaa.. sekarang teh ndis udah 17 tahun alias (sweet seventeen) JIAKH, bikin ktp niech.
+                </div>
+                <div class="words line3">
+                  is cuma mau bilang terima kasih buat semuanya ya udah teh ndis kasih buat ais, dan buat MPK. kita bakalan terus berjuang, dan kita usahakan, sebagaimana mestinya dan se berapa porsinya.
+                </div>
+                <div class="words line4">
+                  ah iyaa, wish ais untuk teh ndis adalah.. semoga teh ndis panjang umur, sehat selalu, juga bisa melawan semua hal-hal yang kurang baik kedepannya. lebih kuat lagi, dan lebih lebih lebih++ pokoknya.
+                </div>
+                <div class="words line5">
+                  sekali lagi, happy birthday yaa teh ndis
+                </div>
+              </div>
+              <div class="hearts">
+                <div class="heart a1">🏆</div>
+                <div class="heart a2">🎵</div>
+                <div class="heart a3">💎</div>
+              </div>
+            </div>
+            <div class="reset">
+              <button class="open-btn" data-target="8">Open</button>
+              <button class="close-btn" data-target="8">Close</button>
+            </div>
+          </div>
+
+          <!-- Letter 9 -->
+          <div class="envlope-wrapper">
+            <div class="envelope-title">dari pawpaw</div>
+            <div class="envelope close" data-envelope="9">
+              <div class="front flap"></div>
+              <div class="front pocket"></div>
+              <div class="letter" data-letter="9">
+                <div class="words line1">dari pawpaw</div>
+                <div class="words line2">
+                  Halloo teh gendiss Najwatuz Zakiyah 👋
+                </div>
+                <div class="words line3">
+                  Selamat bertambah umur yaa, semoga teh ndiss selalu tumbuh dengan senyuman seperti biasa yaa dan selalu diiringi oleh hal hal baikk. Segala doa terbaik aku panjatkan untuk teh ndiss, aku harap teh ndiss gak pernah merasa sendiri karna banyak sekali orang orang yang sayang sama teh ndiss termasuk haifaa heheh^•^
+                  
+                  How lucky i am selalu di miripin sama teh ndiss, orang se keren itu.. seorang teh gendis.. sesosok teh gendis.. 😯 wkwkwk.
+                </div>
+                <div class="words line4">
+                  Terima kasih teh ndiss sudah bertahan sampai detik ini, atas semua hal yang terjadi di hidup teh ndiss entah itu baik atau buruk nya semoga teh ndiss bisa menerima. Terima kasih lagi karna sudah menjadi contoh yang baik sehingga bisa menginspirasi semuanyaa. Berbahagia lah teh ndiss, rayakan hari ini dan seterusnya💛
+                </div>
+                <div class="words line5">
+                  Penuh terima kasih, Haifa radhwa🌻
+                </div>
+              </div>
+              <div class="hearts">
+                <div class="heart a1">🌺</div>
+                <div class="heart a2">🎂</div>
+                <div class="heart a3">🎁</div>
+              </div>
+            </div>
+            <div class="reset">
+              <button class="open-btn" data-target="9">Open</button>
+              <button class="close-btn" data-target="9">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio Controls -->
+    <input id="volume" type="checkbox"/>
+    <label for="volume" title="Toggle sound">
+      <svg viewbox="0 0 24 24">
+        <path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"></path>
+      </svg>
+      <svg viewbox="0 0 24 24">
+        <path d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z"></path>
+      </svg>
+    </label>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+    <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      const {
+        gsap,
+        gsap: { to, timeline, set, delayedCall },
+        Splitting
+      } = window;
+
+      Splitting();
+
+      const BTN = document.querySelector('.birthday-button__button');
+      const SOUNDS = {
+        CHEER: new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/605876/cheer.mp3'),
+        MATCH: new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/605876/match-strike-trimmed.mp3'),
+        TUNE: new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/605876/happy-birthday-trimmed.mp3'),
+        ON: new Audio('https://assets.codepen.io/605876/switch-on.mp3'),
+        BLOW: new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/605876/blow-out.mp3'),
+        POP: new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/605876/pop-trimmed.mp3'),
+        HORN: new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/605876/horn.mp3')
+      };
+
+      const EYES = document.querySelector('.cake__eyes');
+      const BLINK = eyes => {
+        gsap.set(eyes, { scaleY: 1 });
+        if (eyes.BLINK_TL) eyes.BLINK_TL.kill();
+        eyes.BLINK_TL = new gsap.timeline({
+          delay: Math.floor(Math.random() * 4) + 1,
+          onComplete: () => BLINK(eyes)
+        });
+        eyes.BLINK_TL.to(eyes, {
+          duration: 0.05,
+          transformOrigin: '50% 50%',
+          scaleY: 0,
+          yoyo: true,
+          repeat: 1
+        });
+      };
+      BLINK(EYES);
+
+      const FROSTING_TL = () =>
+        timeline()
+          .to('#frosting', { scaleX: 1.015, duration: 0.25 }, 0)
+          .to('#frosting', { scaleY: 1, duration: 1 }, 0)
+          .to('#frosting', { duration: 1, morphSVG: '.cake__frosting--end' }, 0);
+
+      const SPRINKLES_TL = () =>
+        timeline().to('.cake__sprinkle', { scale: 1, duration: 0.06, stagger: 0.02 });
+
+      const SPIN_TL = () =>
+        timeline()
+          .set('.cake__frosting-patch', { display: 'block' })
+          .to(['.cake__frosting--duplicate', '.cake__sprinkles--duplicate'], { x: 0, duration: 1 }, 0)
+          .to(['.cake__frosting--start', '.cake__sprinkles--initial'], { x: 65, duration: 1 }, 0)
+          .to('.cake__face', { duration: 1, x: -48.82 }, 0);
+
+      const flickerSpeed = 0.1;
+      const FLICKER_TL = timeline()
+        .to('.candle__flame-outer', {
+          duration: flickerSpeed,
+          repeat: -1,
+          yoyo: true,
+          morphSVG: '#flame-outer'
+        })
+        .to('.candle__flame-inner', {
+          duration: flickerSpeed,
+          repeat: -1,
+          yoyo: true,
+          morphSVG: '#flame-inner'
+        }, 0);
+
+      const SHAKE_TL = () =>
+        timeline({ delay: 0.5 })
+          .set('.cake__face', { display: 'none' })
+          .set('.cake__face--straining', { display: 'block' })
+          .to('.birthday-button', {
+            onComplete: () => {
+              set('.cake__face--straining', { display: 'none' });
+              set('.cake__face', { display: 'block' });
+            },
+            x: 1,
+            y: 1,
+            repeat: 13,
+            duration: 0.1
+          }, 0)
+          .to('.cake__candle', {
+            onComplete: () => {
+              FLICKER_TL.play();
+            },
+            onStart: () => {
+              SOUNDS.POP.play();
+              delayedCall(0.2, () => SOUNDS.POP.play());
+              delayedCall(0.4, () => SOUNDS.POP.play());
+            },
+            ease: 'Elastic.easeOut',
+            duration: 0.2,
+            stagger: 0.2,
+            scaleY: 1
+          }, 0.2);
+
+      const FLAME_TL = () =>
+        timeline({})
+          .to('.cake__candle', { '--flame': 1, stagger: 0.2, duration: 0.1 })
+          .to('body', { '--flame': 1, '--lightness': 5, duration: 0.2, delay: 0.2 });
+
+      const LIGHTS_OUT = () =>
+        timeline().to('body', {
+          onStart: () => SOUNDS.BLOW.play(),
+          delay: 0.5,
+          '--lightness': 0,
+          duration: 0.1,
+          '--glow-saturation': 0,
+          '--glow-lightness': 0,
+          '--glow-alpha': 1,
+          '--transparency-alpha': 1
+        });
+
+      const RESET = () => {
+        set('.char', {
+          '--hue': () => Math.random() * 360,
+          '--char-sat': 0,
+          '--char-light': 0,
+          x: 0,
+          y: 0,
+          opacity: 1
+        });
+        set('body', {
+          '--frosting-hue': Math.random() * 360,
+          '--glow-saturation': 50,
+          '--glow-lightness': 35,
+          '--glow-alpha': 0.4,
+          '--transparency-alpha': 0,
+          '--flame': 0
+        });
+        set('.cake__candle', { '--flame': 0 });
+        to('body', { '--lightness': 50, duration: 0.25 });
+        set('.cake__frosting--end', { opacity: 0 });
+        set('#frosting', {
+          transformOrigin: '50% 10%',
+          scaleX: 0,
+          scaleY: 0
+        });
+        set('.cake__frosting-patch', { display: 'none' });
+        set(['.cake__frosting--duplicate', '.cake__sprinkles--duplicate'], { x: -65 });
+        set('.cake__face', { x: -110 });
+        set('.cake__face--straining', { display: 'none' });
+        set('.cake__sprinkle', {
+          '--sprinkle-hue': () => Math.random() * 360,
+          scale: 0,
+          transformOrigin: '50% 50%'
+        });
+        set('.birthday-button', { scale: 0.6, x: 0, y: 0 });
+        set('.birthday-button__cake', { display: 'none' });
+        set('.cake__candle', { scaleY: 0, transformOrigin: '50% 100%' });
+      };
+
+      RESET();
+
+      const MASTER_TL = timeline({
+        onStart: () => {
+          SOUNDS.ON.play();
+        },
+        onComplete: () => {
+          // After cake animation completes, transition to letters
+          setTimeout(() => {
+            document.getElementById('cakeSection').classList.add('hide');
+            setTimeout(() => {
+              document.getElementById('lettersSection').classList.add('show');
+              startLettersIntro();
+            }, 1000);
+          }, 2000);
+          BTN.removeAttribute('disabled');
+        },
+        paused: true
+      })
+        .set('.birthday-button__cake', { display: 'block' })
+        .to('.birthday-button', {
+          onStart: () => SOUNDS.CHEER.play(),
+          scale: 1,
+          duration: 0.2
+        })
+        .to('.char', { '--char-sat': 70, '--char-light': 65, duration: 0.2 }, 0)
+        .to('.char', {
+          onStart: () => SOUNDS.HORN.play(),
+          delay: 0.75,
+          y: () => gsap.utils.random(-100, -200),
+          x: () => gsap.utils.random(-50, 50),
+          duration: () => gsap.utils.random(0.5, 1)
+        })
+        .to('.char', { opacity: 0, duration: 0.25 }, '>-0.5')
+        .add(FROSTING_TL())
+        .add(SPRINKLES_TL())
+        .add(SPIN_TL())
+        .add(SHAKE_TL())
+        .add(FLAME_TL(), 'FLAME_ON')
+        .add(LIGHTS_OUT(), 'LIGHTS_OUT');
+
+      SOUNDS.TUNE.onended = SOUNDS.MATCH.onended = () => MASTER_TL.play();
+      MASTER_TL.addPause('FLAME_ON', () => SOUNDS.MATCH.play());
+      MASTER_TL.addPause('LIGHTS_OUT', () => SOUNDS.TUNE.play());
+
+      BTN.addEventListener('click', () => {
+        BTN.setAttribute('disabled', true);
+        MASTER_TL.restart();
+      });
+
+      // Mute sounds by default
+      SOUNDS.TUNE.muted = SOUNDS.MATCH.muted = SOUNDS.HORN.muted = SOUNDS.POP.muted = SOUNDS.CHEER.muted = SOUNDS.BLOW.muted = SOUNDS.ON.muted = true;
+
+      const toggleAudio = () => {
+        SOUNDS.TUNE.muted = SOUNDS.MATCH.muted = SOUNDS.POP.muted = SOUNDS.HORN.muted = SOUNDS.CHEER.muted = SOUNDS.BLOW.muted = SOUNDS.ON.muted = !SOUNDS.BLOW.muted;
+      };
+
+      document.querySelector('#volume').addEventListener('input', toggleAudio);
+
+      // Letters section functionality
+      function startLettersIntro() {
+        let currentTextIndex = 0;
+        const introTexts = [
+          "sedikit hadiah kecil dari kami",
+          "agar kamu tahu bahwa...",
+          "kamu gak sendirian"
+        ];
+
+        function showNextIntroText() {
+          const introText = document.getElementById('introText');
+          
+          if (currentTextIndex < introTexts.length) {
+            introText.classList.add('hide');
+            
+            setTimeout(() => {
+              introText.textContent = introTexts[currentTextIndex];
+              introText.classList.remove('hide');
+              introText.classList.add('show');
+              
+              setTimeout(() => {
+                introText.classList.remove('show');
+              }, 2000);
+              
+              currentTextIndex++;
+              
+              setTimeout(() => {
+                showNextIntroText();
+              }, 3000);
+              
+            }, 1000);
+          } else {
+            setTimeout(() => {
+              const introScreen = document.getElementById('introScreen');
+              const mainContent = document.getElementById('mainContent');
+              
+              introScreen.style.opacity = '0';
+              setTimeout(() => {
+                introScreen.style.display = 'none';
+                mainContent.style.opacity = '1';
+              }, 500);
+            }, 1000);
+          }
+        }
+
+        setTimeout(() => {
+          document.getElementById('introText').classList.add('show');
+          setTimeout(() => {
+            document.getElementById('introText').classList.remove('show');
+            currentTextIndex++;
+            setTimeout(() => {
+              showNextIntroText();
+            }, 1000);
+          }, 2000);
+        }, 500);
+      }
+
+      // Envelope functionality
+      $(document).ready(function () {
+        $('.envelope').click(function () {
+          var envelopeNum = $(this).data('envelope');
+          openEnvelope(envelopeNum);
+        });
+
+        $('.open-btn').click(function () {
+          var target = $(this).data('target');
+          openEnvelope(target);
+        });
+
+        $('.close-btn').click(function () {
+          var target = $(this).data('target');
+          closeEnvelope(target);
+        });
+
+        function openEnvelope(num) {
+          var envelope = $('.envelope[data-envelope="' + num + '"]');
+          envelope.addClass("open").removeClass("close");
+        }
+
+        function closeEnvelope(num) {
+          var envelope = $('.envelope[data-envelope="' + num + '"]');
+          envelope.addClass("close").removeClass("open");
+        }
+      });
+
+      // Auto-start the cake animation when page loads
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          BTN.click();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
